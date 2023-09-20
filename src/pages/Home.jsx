@@ -1,27 +1,33 @@
 import { Layout } from "@/layout/Layout";
 import HomeListPage from "@/components/HomeListPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cx from "classnames";
 import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 import TodoBtn from "@/components/TodoBtn";
 import TodoInput from "@/components/TodoList";
+import todoListMock from "@/data/mock/todoList";
+import { getTodoData } from "@/api/todo";
 
-const todoList = [
-  "做點什麼1",
-  "做點什麼2",
-  "做點什麼3",
-  "做點什麼4",
-  "做點什麼7",
-  "做點什麼8",
-  "做點什麼9",
-];
+// import axios from "axios";
 
 function Home() {
   const [isFocus, setIsFocus] = useState({ tag1: true, tag2: false });
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/handleTodoRequest")
+      .then((res) => res.json())
+      .then((data) => {
+        setTodoList(data.todoList)
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  console.log(todoList)
 
   const handleGetSubmitResult = (result) => {
     console.log("from TodoInput:", result);
-  }
+  };
 
   /**
    * @param {string} tag
@@ -47,22 +53,15 @@ function Home() {
     });
   };
 
-  /**
-   * @param {Event} e
-   * @param {Number} targetTodoId
-   */
-  const handleDeleteBtnClick = (e, targetTodoId) => {
-    e.preventDefault();
-    e.stopPropagation();
-    newTodoList.splice(targetTodoId, 1);
-    setNewTodoList([...newTodoList]);
+  const renderCross = () => {
+    return <Cross2Icon className="w-6 h-6" />;
   };
 
   return (
     <main>
       <Layout>
         <div className="w-[90%] md:w-1/2 min-h-[300px] bg-[#E3D5C9] rounded-md flex flex-col shadow-md py-10 gap-16">
-          <TodoInput handleOnSubmit={handleGetSubmitResult}/>
+          <TodoInput handleOnSubmit={handleGetSubmitResult} />
           <div className="flex justify-start w-[90%] mx-auto relative">
             <div className="absolute rounded-md top-[-40px] h-[40px] left-4">
               <span
@@ -91,35 +90,16 @@ function Home() {
                 title="未完成事項"
                 todoList={todoList}
                 isMove={isFocus.tag2}
-                renderChildren={() => <Cross2Icon className="w-6 h-6" />}
-              >
-                <TodoBtn
-                  renderChildren={() => <CheckIcon className="w-6 h-6" />}
-                  handleClick={(e) => handleDeleteBtnClick(e, index)}
-                  className={"bg-green-700"}
-                />
-                <TodoBtn
-                  renderChildren={() => <Cross2Icon className="w-6 h-6" />}
-                  handleClick={(e) => handleDeleteBtnClick(e, index)}
-                  className={"bg-red-700"}
-                />
-              </HomeListPage>
+                renderAdd={renderCross}
+                renderDelete={renderCross}
+              />
               <HomeListPage
                 title="已完成事項"
                 todoList={todoList}
                 isMove={isFocus.tag2}
-              >
-                <TodoBtn
-                  renderChildren={() => <CheckIcon className="w-6 h-6" />}
-                  handleClick={(e) => handleDeleteBtnClick(e, index)}
-                  className={"bg-green-700"}
-                />
-                <TodoBtn
-                  renderChildren={() => <Cross2Icon className="w-6 h-6" />}
-                  handleClick={(e) => handleDeleteBtnClick(e, index)}
-                  className={"bg-red-700"}
-                />
-              </HomeListPage>
+                renderAdd={renderCross}
+                renderDelete={renderCross}
+              />
             </div>
           </div>
         </div>
