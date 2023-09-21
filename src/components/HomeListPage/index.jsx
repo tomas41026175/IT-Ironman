@@ -9,23 +9,25 @@ import TodoBtn from "@/components/TodoBtn";
  * @param {Array.<object>} todoList
  * @param {boolean} isMove
  * */
-const HomeListPage = ({ title, todoList, isMove, renderAdd,renderDelete}) => {
+const HomeListPage = ({ title, todoList, isMove, renderAdd, renderDelete }) => {
   const [newTodoList, setNewTodoList] = useState([]);
 
   useEffect(() => {
     setNewTodoList((prev) => (prev = todoList?.map((e) => e)));
-  }, []);
+    //由於todoList 是一個會變動的state
+    //為了確保新的List能夠更新，所以加入到array中進行監聽
+  }, [todoList]);
 
-    /**
+  /**
    * @param {Event} e
    * @param {Number} targetTodoId
    */
-    const handleDeleteBtnClick = (e, targetTodoId) => {
-      e.preventDefault();
-      e.stopPropagation();
-      newTodoList.splice(targetTodoId, 1);
-      setNewTodoList([...newTodoList]);
-    };
+  const handleDeleteBtnClick = (e, targetTodoId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    newTodoList.splice(targetTodoId, 1);
+    setNewTodoList([...newTodoList]);
+  };
 
   return (
     <div
@@ -45,17 +47,20 @@ const HomeListPage = ({ title, todoList, isMove, renderAdd,renderDelete}) => {
               key={"todo" + index}
             >
               <span className="text-gray-600">{todo.title}</span>
-              <div className="flex gap-[20px]">              <TodoBtn
-                  renderChildren={renderAdd}
-                  handleClick={(e) => handleDeleteBtnClick(e, index)}
-                  className={"bg-green-700"}
-                />
-              <TodoBtn
+              <div className="flex gap-[20px]">
+                {renderAdd && (
+                  <TodoBtn
+                    renderChildren={renderAdd}
+                    handleClick={(e) => handleDeleteBtnClick(e, index)}
+                    className={"bg-green-700"}
+                  />
+                )}
+                <TodoBtn
                   renderChildren={renderDelete}
                   handleClick={(e) => handleDeleteBtnClick(e, index)}
                   className={"bg-red-700"}
-                /></div>
-
+                />
+              </div>
             </li>
           ))}
         {newTodoList.length <= 0 && <div>目前沒有代辦事項</div>}

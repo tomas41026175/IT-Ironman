@@ -3,30 +3,42 @@ import HomeListPage from "@/components/HomeListPage";
 import { useEffect, useState } from "react";
 import cx from "classnames";
 import { CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
-import TodoBtn from "@/components/TodoBtn";
 import TodoInput from "@/components/TodoList";
-import todoListMock from "@/data/mock/todoList";
 import { getTodoData } from "@/api/todo";
-
-// import axios from "axios";
 
 function Home() {
   const [isFocus, setIsFocus] = useState({ tag1: true, tag2: false });
   const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
-    fetch("/api/handleTodoRequest")
-      .then((res) => res.json())
-      .then((data) => {
-        setTodoList(data.todoList)
+    getTodoList()
+      .then((res) => {
+        setTodoList(res.data.todoList);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err));
   }, []);
 
-  console.log(todoList)
+  const getTodoList = async () => {
+    try {
+      const data = await getTodoData();
+      return data;
+      // console.log(data);
+    } catch (error) {
+      console.error("get data error:", error);
+    }
+  };
 
   const handleGetSubmitResult = (result) => {
-    console.log("from TodoInput:", result);
+    // console.log("from TodoInput:", result);
+    setTodoList(() => {
+      const getLastItem = todoList[todoList.length - 1];
+      const newTodo = [
+        ...todoList,
+        { ...getLastItem, id: getLastItem.id + 1, title: result, desc: "" },
+      ];
+
+      return newTodo;
+    });
   };
 
   /**
@@ -53,6 +65,10 @@ function Home() {
     });
   };
 
+  const renderCheck = () => {
+    return <CheckIcon className="w-6 h-6" />;
+  };
+
   const renderCross = () => {
     return <Cross2Icon className="w-6 h-6" />;
   };
@@ -66,9 +82,9 @@ function Home() {
             <div className="absolute rounded-md top-[-40px] h-[40px] left-4">
               <span
                 className={cx(
-                  "inline-block py-2 px-4 mr-4 rounded-t-md select-none cursor-pointer text-[1.2rem] font-bold hover:bg-gray-400 hover:text-white",
-                  { "bg-gray-400 text-white": isFocus.tag1 },
-                  { "text-gray-600  bg-white": !isFocus.tag1 }
+                  "inline-block py-2 px-4 mr-4 rounded-t-md select-none cursor-pointer text-[1.2rem] font-bold hover:bg-white hover:text-gray-600",
+                  { "bg-gray-400 text-white": !isFocus.tag1 },
+                  { "text-gray-600  bg-white": isFocus.tag1 }
                 )}
                 onClick={() => togglePage("tag1")}
               >
@@ -76,9 +92,9 @@ function Home() {
               </span>
               <span
                 className={cx(
-                  "inline-block py-2 px-4 mr-4 rounded-t-md select-none cursor-pointer text-[1.2rem] font-bold hover:bg-gray-400 hover:text-white",
-                  { "bg-gray-400 text-white": isFocus.tag2 },
-                  { "text-gray-600  bg-white": !isFocus.tag2 }
+                  "inline-block py-2 px-4 mr-4 rounded-t-md select-none cursor-pointer text-[1.2rem] font-bold hover:bg-white hover:text-gray-600",
+                  { "bg-gray-400 text-white": !isFocus.tag2 },
+                  { "text-gray-600  bg-white": isFocus.tag2 }
                 )}
                 onClick={() => togglePage("tag2")}
               >
@@ -90,14 +106,14 @@ function Home() {
                 title="未完成事項"
                 todoList={todoList}
                 isMove={isFocus.tag2}
-                renderAdd={renderCross}
+                renderAdd={renderCheck}
                 renderDelete={renderCross}
               />
               <HomeListPage
                 title="已完成事項"
                 todoList={todoList}
                 isMove={isFocus.tag2}
-                renderAdd={renderCross}
+                // renderAdd={renderCheck}
                 renderDelete={renderCross}
               />
             </div>
