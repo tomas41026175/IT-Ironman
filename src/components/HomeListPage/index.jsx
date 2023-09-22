@@ -59,7 +59,7 @@ const HomeListPage = ({
               data-todo={"todo" + index}
               key={"todo" + index}
             >
-              <span className="text-gray-600">{todo.title}</span>
+              <span className=" flex-1">{todo.title}</span>
               <div className="flex gap-[20px]">
                 {renderAdd && (
                   <TodoBtn
