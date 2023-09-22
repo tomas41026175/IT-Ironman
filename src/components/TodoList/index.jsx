@@ -3,13 +3,14 @@ import { useState } from "react";
 const TodoInput = ({ handleOnSubmit }) => {
   const [inputValue, setInputValue] = useState("");
 
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
   const handleSubmit = () => {
     const result = inputValue;
     handleOnSubmit(result);
+    setInputValue("");
+  };
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (
@@ -19,6 +20,7 @@ const TodoInput = ({ handleOnSubmit }) => {
         className="flex-1 max-w-[400px] rounded-md pl-4 shadow-md"
         placeholder="請輸入代辦事項"
         onChange={handleChange}
+        value={inputValue}
       />
       <div
         className="self-center min-w-[80px] text-center rounded mx-2 border-2 px-4 py-1 cursor-pointer shadow-md transition-all bg-white hover:bg-[#e3e8eB] text-gray-500 text-xl font-bold"

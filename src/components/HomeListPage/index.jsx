@@ -9,7 +9,14 @@ import TodoBtn from "@/components/TodoBtn";
  * @param {Array.<object>} todoList
  * @param {boolean} isMove
  * */
-const HomeListPage = ({ title, todoList, isMove, renderAdd, renderDelete }) => {
+const HomeListPage = ({
+  title,
+  todoList,
+  isMove,
+  renderAdd,
+  renderDelete,
+  handleAdd,
+}) => {
   const [newTodoList, setNewTodoList] = useState([]);
 
   useEffect(() => {
@@ -27,6 +34,12 @@ const HomeListPage = ({ title, todoList, isMove, renderAdd, renderDelete }) => {
     e.stopPropagation();
     newTodoList.splice(targetTodoId, 1);
     setNewTodoList([...newTodoList]);
+  };
+
+  const sendItemID = (e, item) => {
+      e.preventDefault();
+      e.stopPropagation();
+      handleAdd(item);
   };
 
   return (
@@ -51,7 +64,9 @@ const HomeListPage = ({ title, todoList, isMove, renderAdd, renderDelete }) => {
                 {renderAdd && (
                   <TodoBtn
                     renderChildren={renderAdd}
-                    handleClick={(e) => handleDeleteBtnClick(e, index)}
+                    handleClick={(e) => {
+                      sendItemID(e, index);
+                    }}
                     className={"bg-green-700"}
                   />
                 )}
@@ -63,7 +78,7 @@ const HomeListPage = ({ title, todoList, isMove, renderAdd, renderDelete }) => {
               </div>
             </li>
           ))}
-        {newTodoList.length <= 0 && <div>目前沒有代辦事項</div>}
+        {newTodoList.length <= 0 && <div>這邊沒有資料~~~</div>}
       </ul>
     </div>
   );

@@ -9,6 +9,7 @@ import { getTodoData } from "@/api/todo";
 function Home() {
   const [isFocus, setIsFocus] = useState({ tag1: true, tag2: false });
   const [todoList, setTodoList] = useState([]);
+  const [doneTodo, setDoneTodo] = useState([]);
 
   useEffect(() => {
     getTodoList()
@@ -65,18 +66,20 @@ function Home() {
     });
   };
 
-  const renderCheck = () => {
-    return <CheckIcon className="w-6 h-6" />;
-  };
-
-  const renderCross = () => {
-    return <Cross2Icon className="w-6 h-6" />;
+  const handleAddClick = (ItemId) => {
+    const newTodoArr = todoList.map((e) => e);
+    const doneItem = newTodoArr.splice(ItemId, 1);
+    setTodoList(newTodoArr);
+    // console.log(ItemId, newDoneArr);
+    const newDoneArr = doneTodo.map((e) => e);
+    newDoneArr.push(doneItem[0]);
+    setDoneTodo(newDoneArr);
   };
 
   return (
     <main>
       <Layout>
-        <div className="w-[90%] md:w-1/2 min-h-[300px] bg-[#E3D5C9] rounded-md flex flex-col shadow-md py-10 gap-16">
+        <div className="w-full max-w-[992px] min-h-[300px] bg-[#E3D5C9] rounded-md flex flex-col shadow-md py-10 gap-16">
           <TodoInput handleOnSubmit={handleGetSubmitResult} />
           <div className="flex justify-start w-[90%] mx-auto relative">
             <div className="absolute rounded-md top-[-40px] h-[40px] left-4">
@@ -106,15 +109,16 @@ function Home() {
                 title="未完成事項"
                 todoList={todoList}
                 isMove={isFocus.tag2}
-                renderAdd={renderCheck}
-                renderDelete={renderCross}
+                renderAdd={() => <CheckIcon className="w-6 h-6" />}
+                renderDelete={() => <Cross2Icon className="w-6 h-6" />}
+                handleAdd={handleAddClick}
               />
               <HomeListPage
                 title="已完成事項"
-                todoList={todoList}
+                todoList={doneTodo}
                 isMove={isFocus.tag2}
                 // renderAdd={renderCheck}
-                renderDelete={renderCross}
+                renderDelete={() => <Cross2Icon className="w-6 h-6" />}
               />
             </div>
           </div>
