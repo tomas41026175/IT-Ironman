@@ -1,4 +1,5 @@
-import { Cross2Icon } from '@radix-ui/react-icons';
+// import { Cross2Icon } from '@radix-ui/react-icons';
+import React from 'react'
 import cx from 'classnames';
 import { useEffect, useState } from 'react';
 

@@ -1,3 +1,5 @@
+import React from 'react'
+
 /**
  * @param {function(): JSX.Element} renderChildren
  * @param {function()} handleClick

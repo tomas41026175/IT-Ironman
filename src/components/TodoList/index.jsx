@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const TodoInput = ({ handleOnSubmit }) => {
+const TodoInput = ({ handleOnSubmit, children }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = () => {
@@ -14,10 +14,10 @@ const TodoInput = ({ handleOnSubmit }) => {
   };
 
   return (
-    <div className="flex self-center justify-center w-full h-[50px] pl-4 pr-2">
+    <div className="flex self-center items-center justify-center w-full h-[50px] pl-4 pr-2">
       <input
         type="text"
-        className="flex-1 max-w-[400px] rounded-md pl-4 shadow-md"
+        className="min-h-[53px] flex-1 max-w-[400px] rounded-md pl-4 shadow-md"
         placeholder="請輸入代辦事項"
         onChange={handleChange}
         value={inputValue}
@@ -28,6 +28,7 @@ const TodoInput = ({ handleOnSubmit }) => {
       >
         送出
       </div>
+      {children}
     </div>
   );
 };
