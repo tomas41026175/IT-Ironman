@@ -26,7 +26,7 @@ const todoSlice = createSlice({
       };
       state.push(newTodo);
     },
-    updateTodo: ({ state, action }) => {
+    updateTodo: (state, action) => {
       const { id, title, desc } = action.payload;
       const targetTodoPosition = state.findIndex((todo) => todo.id === id);
       if (targetTodoPosition !== -1) {
@@ -37,6 +37,7 @@ const todoSlice = createSlice({
         };
       }
     },
+    
   },
 });
 

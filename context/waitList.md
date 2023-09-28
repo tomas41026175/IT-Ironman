@@ -1,6 +1,10 @@
+Jest
 Redux 
-supobase
+    - refactoring
+
+supabase
     - login
     - database
-Jest
+      - user 
+        - todos
 CICD

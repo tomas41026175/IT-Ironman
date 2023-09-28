@@ -39,10 +39,10 @@ const HomeListPage = ({
         setNewTodoList([...newTodoList]);
     };
 
-    const sendAddItemID = (e, item) => {
+    const sendDoneItem = (e, todo) => {
         e.preventDefault();
         e.stopPropagation();
-        handleAdd(item);
+        handleAdd(todo);
     };
 
     const sendRecoverItemID = (e, item) => {
@@ -74,7 +74,7 @@ const HomeListPage = ({
                                     <TodoBtn
                                         renderChildren={renderAdd}
                                         handleClick={e => {
-                                            sendAddItemID(e, index);
+                                            sendDoneItem(e, todo);
                                         }}
                                         className={'bg-green-700'}
                                     />
@@ -83,7 +83,7 @@ const HomeListPage = ({
                                     <TodoBtn
                                         renderChildren={renderRecover}
                                         handleClick={e => {
-                                            sendRecoverItemID(e, index);
+                                            sendRecoverItemID(e, todo);
                                         }}
                                         className={'bg-yellow-700'}
                                     />
