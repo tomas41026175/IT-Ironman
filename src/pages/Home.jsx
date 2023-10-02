@@ -157,6 +157,10 @@ function Home() {
         // setTodoList(newTodoArr);
     };
 
+    const handleDeleteBtnClick = Item => {
+        dispatch(removeTodo(Item));
+    };
+
     return (
         <main>
             <Layout>
@@ -195,6 +199,7 @@ function Home() {
                                 renderAdd={() => <CheckIcon className="w-6 h-6" />}
                                 renderDelete={() => <Cross2Icon className="w-6 h-6" />}
                                 handleAdd={handleDoneClick}
+                                handleDelete={handleDeleteBtnClick}
                             />
                             <HomeListPage
                                 title="已完成事項"
@@ -203,6 +208,7 @@ function Home() {
                                 handleRecover={handleRecoverClick}
                                 renderRecover={() => <ResetIcon className="w-6 h-6" />}
                                 renderDelete={() => <Cross2Icon className="w-6 h-6" />}
+                                handleDelete={handleDeleteBtnClick}
                             />
                         </div>
                     </div>

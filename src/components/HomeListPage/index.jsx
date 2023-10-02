@@ -15,8 +15,9 @@ const HomeListPage = ({
     todoList,
     isMove,
     renderAdd,
-    renderDelete,
     handleAdd,
+    renderDelete,
+    handleDelete,
     renderRecover,
     handleRecover,
 }) => {
@@ -45,11 +46,19 @@ const HomeListPage = ({
         handleAdd(todo);
     };
 
-    const sendRecoverItemID = (e, item) => {
+    const sendRecoverItemID = (e, todo) => {
         e.preventDefault();
         e.stopPropagation();
-        handleRecover(item);
+        handleRecover(todo);
     };
+
+    const sendItemID = (e, todo) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleDelete(todo);
+    };
+
+
 
     return (
         <div
@@ -90,7 +99,7 @@ const HomeListPage = ({
                                 )}
                                 <TodoBtn
                                     renderChildren={renderDelete}
-                                    handleClick={e => handleDeleteBtnClick(e, index)}
+                                    handleClick={e => sendItemID(e, todo)}
                                     className={'bg-red-700'}
                                 />
                             </div>
