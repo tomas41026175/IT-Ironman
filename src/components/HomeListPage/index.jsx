@@ -1,8 +1,6 @@
-// import { Cross2Icon } from '@radix-ui/react-icons';
-import React from 'react'
+import React, { useCallback } from 'react';
 import cx from 'classnames';
 import { useEffect, useState } from 'react';
-
 import TodoBtn from '@/components/TodoBtn';
 
 /**
@@ -29,16 +27,11 @@ const HomeListPage = ({
         //為了確保新的List能夠更新，所以加入到array中進行監聽
     }, [todoList]);
 
-    /**
-     * @param {Event} e
-     * @param {Number} targetTodoId
-     */
-    const handleDeleteBtnClick = (e, targetTodoId) => {
+    const handleAction = useCallback((e, todo, actionHandler) => {
         e.preventDefault();
         e.stopPropagation();
-        newTodoList.splice(targetTodoId, 1);
-        setNewTodoList([...newTodoList]);
-    };
+        actionHandler(todo);
+    }, []);
 
     const sendDoneItem = (e, todo) => {
         e.preventDefault();
@@ -57,8 +50,6 @@ const HomeListPage = ({
         e.stopPropagation();
         handleDelete(todo);
     };
-
-
 
     return (
         <div
@@ -83,7 +74,7 @@ const HomeListPage = ({
                                     <TodoBtn
                                         renderChildren={renderAdd}
                                         handleClick={e => {
-                                            sendDoneItem(e, todo);
+                                            handleAction(e, todo, handleAdd);
                                         }}
                                         className={'bg-green-700'}
                                     />
@@ -92,14 +83,14 @@ const HomeListPage = ({
                                     <TodoBtn
                                         renderChildren={renderRecover}
                                         handleClick={e => {
-                                            sendRecoverItemID(e, todo);
+                                            handleAction(e, todo, handleRecover);
                                         }}
                                         className={'bg-yellow-700'}
                                     />
                                 )}
                                 <TodoBtn
                                     renderChildren={renderDelete}
-                                    handleClick={e => sendItemID(e, todo)}
+                                    handleClick={e => handleAction(e, todo, handleDelete)}
                                     className={'bg-red-700'}
                                 />
                             </div>

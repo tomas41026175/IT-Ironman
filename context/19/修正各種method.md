@@ -46,9 +46,9 @@ useEffect(() => {
 const completedTodos = useSelector(state=>state.isDone)
 ```
 
-這樣確實沒錯，我們可以得到"目前"store中已完成&未完成的資料，但是並不會因為store中的資料更新，這兩個參數所儲存的state也跟著變化，所以我們需要透過```createSelector```這個來自於reselect中的方式，建立一個Memoized Selector。
-他會在store中的state產生變化的時候重新計算需要的state。
+這樣確實沒錯，我們可以得到"目前"store 中已完成&未完成的資料，但是並不會因為 store 中的資料更新，這兩個參數所儲存的 state 也跟著變化，所以我們需要透過`createSelector`這個來自於 reselect 中的方式，建立一個 Memoized Selector。
+他會在 store 中的 state 產生變化的時候重新計算需要的 state。
 
-首先第一個參數會是一個input array，第二個參數為處裡資料的function。
+首先第一個參數會是一個 input array，第二個參數為處裡資料的 function。
 
-若是input array中的資料沒有變化，則不觸發後面的資料處理function。
+若是 input array 中的資料沒有變化，則不觸發後面的資料處理 function。
