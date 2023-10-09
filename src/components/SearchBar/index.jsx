@@ -35,20 +35,19 @@ const Modal = ({ isOpen, onClose, originArr }) => {
         { block: isOpen, hidden: !isOpen }
       )}
     >
-      <div>
-        <label className="text-2xl">
-          請輸入資料：
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => handleOnChange(e)}
-            className="border-2"
-          />
-        </label>
+      <div className="flex justify-center items-center">
+        <label className="text-2xl">請輸入資料：</label>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => handleOnChange(e)}
+          className="border-2"
+        />
       </div>
-      <div className="w-full text-center"></div>
-      <ul className="self-start w-full">
-        {filteredData?.length !== 0 && (
+      {/* <div className="w-full text-center"></div> */}
+
+      {filteredData?.length !== 0 && (
+        <ul className="self-start w-full">
           <div className="w-full text-center">
             {filteredData &&
               filteredData.map(
@@ -65,9 +64,10 @@ const Modal = ({ isOpen, onClose, originArr }) => {
                   )
               )}
           </div>
-        )}
-      </ul>
+        </ul>
+      )}
       <button
+        type="button"
         onClick={onClose}
         className="bg-red-600 text-white px-4 py-2 rounded-md absolute right-2 top-2"
       >

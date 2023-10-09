@@ -1,9 +1,51 @@
 [
-    { "id": 1, "title": "做點什麼1", "desc": "這是todo1的detail", "isDone": false },
-    { "id": 2, "title": "做點什麼2", "desc": "這是todo2的detail", "isDone": true },
-    { "id": 3, "title": "做點什麼3", "desc": "這是todo3的detail", "isDone": false },
-    { "id": 4, "title": "做點什麼4", "desc": "這是todo4的detail", "isDone": true },
-    { "id": 5, "title": "做點什麼7", "desc": "這是todo7的detail", "isDone": false },
-    { "id": 6, "title": "做點什麼8", "desc": "這是todo8的detail", "isDone": true },
-    { "id": 7, "title": "做點什麼9", "desc": "這是todo9的detail", "isDone": false }
+  {
+    "id": 1,
+    "title": "做點什麼1",
+    "desc": "這是todo1的detail",
+    "isEdit": false,
+    "isDone": false
+  },
+  {
+    "id": 2,
+    "title": "做點什麼2",
+    "desc": "這是todo2的detail",
+    "isEdit": false,
+    "isDone": true
+  },
+  {
+    "id": 3,
+    "title": "做點什麼3",
+    "desc": "這是todo3的detail",
+    "isEdit": false,
+    "isDone": false
+  },
+  {
+    "id": 4,
+    "title": "做點什麼4",
+    "desc": "這是todo4的detail",
+    "isEdit": false,
+    "isDone": true
+  },
+  {
+    "id": 5,
+    "title": "做點什麼7",
+    "desc": "這是todo7的detail",
+    "isEdit": false,
+    "isDone": false
+  },
+  {
+    "id": 6,
+    "title": "做點什麼8",
+    "desc": "這是todo8的detail",
+    "isEdit": false,
+    "isDone": true
+  },
+  {
+    "id": 7,
+    "title": "做點什麼9",
+    "desc": "這是todo9的detail",
+    "isEdit": false,
+    "isDone": false
+  }
 ]

@@ -37,7 +37,7 @@ const completedTodos = useSelector(selectCompletedTodos);
 目前我們使用 useEffect 並透過 getTodoList() call api，但若我們需要在不同的 component 中，使用這段邏輯的話，我們就需要一直重複這段。
 所以我們這時候可以透過 custom hook 將這段邏輯封裝成一個 hook。
 
-```
+```js
 export const useGetTodo = ()=>{
     const dispatch = useDispatch();
     const defineTodo = todoArr => {
@@ -69,7 +69,7 @@ export const useGetTodo = ()=>{
 
 接下來看到新增 todo 的部分
 
-```
+```js
 const handleGetSubmitResult = result => {
     const getLastItem = todos[todos.length - 1];
     const newTodo = [
@@ -83,7 +83,7 @@ const handleGetSubmitResult = result => {
 
 目前我們使用的還是 useState 中的資料，但由於我們前面已經將useState都移除了，但我們知道這個function的作用是新一筆新的todo塞進目前的todoList中，所以我們可以使用store中的addTodo，我們在這個method中透過複製最後一筆資料，並且修改這筆資料來建立一個新的todo並且將這個新的todo加入到todoArr中。
 
-```
+```js
 const handleGetSubmitResult = result => {
     dispatch(addTodo({ title: result, desc: '', isDone: false }));
 };

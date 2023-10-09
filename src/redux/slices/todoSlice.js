@@ -37,10 +37,10 @@ const todoSlice = createSlice({
         };
       }
     },
-    
   },
 });
 
-export const { updateTodoArr,addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const { updateTodoArr, addTodo, removeTodo, updateTodo } =
+  todoSlice.actions;
 
 export default todoSlice;
