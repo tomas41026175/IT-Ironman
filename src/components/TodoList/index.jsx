@@ -14,7 +14,7 @@ const TodoInput = ({ handleOnSubmit, children }) => {
   };
 
   return (
-    <div className="flex self-center items-center justify-center w-full h-[50px] pl-4 pr-2">
+    <div className="flex flex-wrap self-center items-center justify-center w-full pl-4 pr-2">
       <input
         type="text"
         className="min-h-[53px] flex-1 max-w-[400px] rounded-md pl-4 shadow-md"

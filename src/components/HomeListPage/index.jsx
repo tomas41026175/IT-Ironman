@@ -2,7 +2,6 @@ import React from "react";
 import cx from "classnames";
 import { useEffect, useState } from "react";
 import TodoBtn from "@/components/TodoBtn";
-// import { render } from "@testing-library/react";
 
 /**
  * @param {string} title
@@ -23,7 +22,6 @@ const HomeListPage = ({
   handleRecover,
 }) => {
   const [newTodoList, setNewTodoList] = useState([]);
-  //   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     setNewTodoList((prev) => (prev = todoList?.map((e) => e)));
@@ -37,30 +35,12 @@ const HomeListPage = ({
     actionHandler(todo);
   };
 
-  //因為component會重複使用 避免每次render都要重新生成一次function
+  //因為component會重複使用 可使用useCallback避免每次render都要重新生成一次function
   // const handleAction = useCallback((e, todo, actionHandler) => {
   //     e.preventDefault();
   //     e.stopPropagation();
   //     actionHandler(todo);
   // }, []);
-
-  // const sendDoneItem = (e, todo) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     handleAdd(todo);
-  // };
-
-  // const sendRecoverItemID = (e, todo) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     handleRecover(todo);
-  // };
-
-  // const sendItemID = (e, todo) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     handleDelete(todo);
-  // };
 
   return (
     <div

@@ -1,46 +1,49 @@
 import React, { useRef, useState } from "react";
 import cx from "classnames";
-import HomeListPage from "@/components/HomeListPage";
-import TodoInput from "@/components/TodoList";
-import { Layout } from "@/layout/Layout";
+import { useSelector, useDispatch } from "react-redux";
+import { createSelector } from "reselect";
 import {
   CheckIcon,
   Cross2Icon,
   Pencil2Icon,
   ResetIcon,
 } from "@radix-ui/react-icons";
+import { Layout } from "@/layout/Layout";
+import TodoInput from "@/components/TodoList";
+import HomeListPage from "@/components/HomeListPage";
 import SearchBar from "@/components/SearchBar";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  updateTodoArr,
-  addTodo,
-  removeTodo,
-  updateTodo,
+import { 
+    updateTodoArr, 
+    addTodo, 
+    removeTodo, 
+    updateTodo 
 } from "@/redux/slices/todoSlice";
-import { createSelector } from "reselect";
-import { useGetTodo } from "@/hooks/useGetTodos";
 import useModal from "@/hooks/useModal";
+import { useGetTodo } from "@/hooks/useGetTodos";
 
 function Home() {
   const [isFocus, setIsFocus] = useState({ tag1: true, tag2: false });
   const [modalTodo, setModalTodo] = useState({});
-
-  const dispatch = useDispatch();
   const oriTodo = useSelector((state) => state.todo);
+  const newTodo = useRef({})
 
+  // Redux dispatch
+  const dispatch = useDispatch();
+
+  // Fetch todo data
   useGetTodo();
 
+  // Selectors
   //這邊的selectTodos可以理解為 作為selector的函數在createSelector的時候 從state中選取todo
   const selectTodos = (state) => state.todo;
-  const selectCompletedTodos = createSelector([selectTodos], (todos) => {
-    return todos.filter((todo) => todo.isDone);
-  });
-  const selectUncompletedTodos = createSelector([selectTodos], (todos) =>
-    todos.filter((todo) => !todo.isDone)
-  );
+  const selectCompletedTodos = createSelector([selectTodos], (todos) => todos.filter((todo) => todo.isDone));
+  const selectUncompletedTodos = createSelector([selectTodos], (todos) => todos.filter((todo) => !todo.isDone));
   const completedTodos = useSelector(selectCompletedTodos);
   const uncompletedTodos = useSelector(selectUncompletedTodos);
 
+  const { show, RenderModal, hide } = useModal();
+
+  // Handlers & Logic functions
   /**
    * @param {string} tag
    */
@@ -64,11 +67,16 @@ function Home() {
       return updateState;
     });
   };
-
+  /**
+   * @param {string} result 
+  */
   const handleGetSubmitResult = (result) => {
-    dispatch(addTodo({ title: result, desc: "", isDone: false }));
+    const template = { title: result, desc: "", isDone: false }
+    dispatch(addTodo(template));
   };
-
+  /**
+  * @param {object} item 
+  */
   const handleDoneClick = (item) => {
     const newTodos = oriTodo.map((todo) => {
       if (todo.id === item.id) {
@@ -82,7 +90,6 @@ function Home() {
 
     dispatch(updateTodoArr(newTodos));
   };
-
   const handleRecoverClick = (item) => {
     const newTodos = oriTodo.map((todo) => {
       if (todo.id === item.id) {
@@ -96,25 +103,18 @@ function Home() {
 
     dispatch(updateTodoArr(newTodos));
   };
-
   const handleDeleteBtnClick = (item) => {
     dispatch(removeTodo(item));
   };
-
-  const { show, RenderModal, hide } = useModal();
-
-  const newTodo = useRef({})
-
   const handleEditBtnClick = (item) => {
-    setModalTodo((prev) => item);
+    setModalTodo((prev) => prev = item);
     newTodo.current = {...item};
     show();
   };
-
   const updateTodoItem = (item) => {
-    // console.log(item)
-    dispatch(updateTodo(newTodo.current));
+    dispatch(updateTodo(item));
     newTodo.current = {}
+    setModalTodo({});
     hide();
   };
 

@@ -5,6 +5,7 @@ const Modal = ({ isOpen, onClose, originArr }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
+  // logic functionss
   const changeCase = (inputString, toLowerCase) => {
     if (toLowerCase) {
       return inputString.toLowerCase();
@@ -12,7 +13,6 @@ const Modal = ({ isOpen, onClose, originArr }) => {
       return inputString.toUpperCase();
     }
   };
-
   const filterFunc = (keyword) => {
     const newKeyword = changeCase(keyword, true);
     const filteredData = originArr.data?.filter((data) => {
@@ -21,7 +21,6 @@ const Modal = ({ isOpen, onClose, originArr }) => {
 
     return filteredData;
   };
-
   const handleOnChange = (e) => {
     setInputValue(e.target.value);
     const result = filterFunc(e.target.value);
@@ -35,7 +34,7 @@ const Modal = ({ isOpen, onClose, originArr }) => {
         { block: isOpen, hidden: !isOpen }
       )}
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center flex-wrap">
         <label className="text-2xl">請輸入資料：</label>
         <input
           type="text"
@@ -95,7 +94,7 @@ const SearchBar = (data) => {
     <div>
       <button
         onClick={handleOpenModal}
-        className="self-center min-w-[80px] text-center rounded mx-2 border-2 px-4 py-1 cursor-pointer shadow-md transition-all bg-white hover:bg-[#e3e8eB] text-gray-500 text-xl font-bold"
+        className="self-center min-w-[80px] text-center rounded mx-2 border-2 px-4 py-1 cursor-pointer shadow-md transition-all bg-white hover:bg-[#e3e8eB] text-gray-500 text-xl font-bold my-2 md:my-0"
       >
         搜尋todo
       </button>
