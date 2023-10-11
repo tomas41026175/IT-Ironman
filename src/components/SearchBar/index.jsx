@@ -30,20 +30,19 @@ const Modal = ({ isOpen, onClose, originArr }) => {
   return (
     <div
       className={cx(
-        "gap-[20px] rounded-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 z-50 shadow-md border-2 flex flex-wrap justify-center items-center py-10 px-20",
+        "gap-[20px] rounded-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 z-50 shadow-md border-2 flex flex-wrap justify-center items-center py-10 px-20 w-[95%] mx-auto max-w-[450px]",
         { block: isOpen, hidden: !isOpen }
       )}
     >
-      <div className="flex justify-center items-center flex-wrap">
-        <label className="text-2xl">請輸入資料：</label>
+      <div className="flex justify-start items-center flex-wrap gap-4">
+        <label className="text-xl select-none">請輸入資料：</label>
         <input
           type="text"
           value={inputValue}
           onChange={(e) => handleOnChange(e)}
-          className="border-2"
+          className="border-2 flex-1"
         />
       </div>
-      {/* <div className="w-full text-center"></div> */}
 
       {filteredData?.length !== 0 && (
         <ul className="self-start w-full">
@@ -53,7 +52,7 @@ const Modal = ({ isOpen, onClose, originArr }) => {
                 (data, index) =>
                   data && (
                     <li
-                      className="my-2 py-2 border-b-2 flex justify-between"
+                      className="my-2 py-2 border-b-2 flex justify-between gap-4 md:gap-0"
                       data-todo={`todo${index}`}
                       key={index}
                     >

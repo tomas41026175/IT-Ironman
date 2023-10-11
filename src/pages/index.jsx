@@ -33,7 +33,7 @@ const Index = () => {
       email: userData.account,
       password: userData.password,
     });
-    console.log(data);
+    console.log('data',data);
 
     if (!data.user) {
       alert("帳號或密碼錯誤");
@@ -46,23 +46,23 @@ const Index = () => {
         .select("username")
         .eq("id", data.user.id);
 
-      if (profileError) {
-        console.error("Error checking profile:", profileError);
-        return;
-      }
+      // if (profileError) {
+      //   console.error("Error checking profile:", profileError);
+      //   return;
+      // }
 
       // if user don't in profiles table
-      if (!profileData || profileData.length === 0) {
-        // insert user into profiles table
-        const { error: insertError } = await supabase
-          .from("profiles")
-          .insert([{ id: data.user.id, username: "DESIRED_USERNAME" }]);
+      // if (!profileData || profileData.length === 0) {
+      //   // insert user into profiles table
+      //   const { error: insertError } = await supabase
+      //     .from("profiles")
+      //     .insert([{ id: data.user.id, username: "DESIRED_USERNAME" }]);
 
-        if (insertError) {
-          console.error("Error inserting profile:", insertError);
-          return;
-        }
-      }
+      //   if (insertError) {
+      //     console.error("Error inserting profile:", insertError);
+      //     return;
+      //   }
+      // }
 
       alert("登入成功");
       document.cookie = `token=${data.session.access_token}; Max-Age=900; Secure; HttpOnly; Path=/; SameSite=Strict`;

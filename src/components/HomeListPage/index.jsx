@@ -49,13 +49,13 @@ const HomeListPage = ({
         { "translate-x-[-100%]": isMove }
       )}
     >
-      <h3 className="text-3xl text-gray-600 font-bold">{title}</h3>
+      <h3 className="text-3xl text-gray-600 font-bold select-none">{title}</h3>
       <ul className="self-start w-full">
         {/* 這邊以todo的長度 > 0，判斷是否有todo */}
         {newTodoList.length > 0 &&
           newTodoList.map((todo, index) => (
             <li
-              className="my-2 py-2 border-b-2 flex justify-between"
+              className="my-2 py-2 border-b-2 flex justify-between flex-wrap gap-4 md:gap-0"
               data-todo={"todo" + index}
               key={"todo" + index}
             >

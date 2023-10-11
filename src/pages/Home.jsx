@@ -161,7 +161,7 @@ function Home() {
             </button>
           </RenderModal>
           <div className="flex justify-start w-[90%] mx-auto relative">
-            <div className="absolute rounded-md top-[-40px] h-[40px] left-4">
+            <div className="absolute rounded-md top-[-40px] h-[40px] left-4 flex">
               <span
                 className={cx(
                   "inline-block py-2 px-4 mr-4 rounded-t-md select-none cursor-pointer text-[1.2rem] font-bold hover:bg-white hover:text-gray-600",
@@ -170,7 +170,7 @@ function Home() {
                 )}
                 onClick={() => togglePage("tag1")}
               >
-                未完成事項
+                未完成
               </span>
               <span
                 className={cx(
@@ -180,7 +180,7 @@ function Home() {
                 )}
                 onClick={() => togglePage("tag2")}
               >
-                已完成事項
+                已完成
               </span>
             </div>
             <div className="overflow-x-hidden w-full flex relative z-5">
