@@ -37,7 +37,7 @@ const SignUp = () => {
   return (
     <Layout title="Sign Up">
       <form
-        className="py-10 px-16 bg-white rounded-xl shadow-md"
+        className="p-4 md:py-10 md:px-16 bg-white rounded-xl shadow-md w-full max-w-[650px] mx-auto"
         onSubmit={handleSubmit(onSubmit, onErrors)}
       >
         <div className="mb-12">
@@ -52,6 +52,7 @@ const SignUp = () => {
             })}
             error={errors.account}
             type="text"
+            placeholder="guest001@test.com"
           />
           <TextInput
             label="密碼"
@@ -70,9 +71,10 @@ const SignUp = () => {
             })}
             error={errors.password}
             type="password"
+            placeholder="@A123456789"
           />
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center flex-wrap gap-4">
           <Link href={"/"}>
             <span className="rounded mx-2 border-2 px-4 py-1 cursor-pointer transition-all hover:bg-[#e3e8eB] text-gray-500 text-xl font-bold">
               返回登入

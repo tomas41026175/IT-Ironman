@@ -34,7 +34,7 @@ const Index = () => {
       password: userData.password,
     });
     console.log(data);
-    
+
     if (!data.user) {
       alert("帳號或密碼錯誤");
       console.log(error);
@@ -42,34 +42,33 @@ const Index = () => {
     } else {
       // check if user is in profiles table
       const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', data.user.id);
-  
+        .from("profiles")
+        .select("username")
+        .eq("id", data.user.id);
+
       if (profileError) {
-        console.error('Error checking profile:', profileError);
+        console.error("Error checking profile:", profileError);
         return;
       }
-  
+
       // if user don't in profiles table
       if (!profileData || profileData.length === 0) {
         // insert user into profiles table
         const { error: insertError } = await supabase
-          .from('profiles')
-          .insert([{ id: data.user.id, username: 'DESIRED_USERNAME' }]);
-        
+          .from("profiles")
+          .insert([{ id: data.user.id, username: "DESIRED_USERNAME" }]);
+
         if (insertError) {
-          console.error('Error inserting profile:', insertError);
+          console.error("Error inserting profile:", insertError);
           return;
         }
       }
-  
+
       alert("登入成功");
       document.cookie = `token=${data.session.access_token}; Max-Age=900; Secure; HttpOnly; Path=/; SameSite=Strict`;
       router.push(process.env.NEXT_PUBLIC_HOME_PAGE);
     }
   };
-  
 
   // const getUserData = async () => {
   //   const temp = await supabase
@@ -85,7 +84,7 @@ const Index = () => {
   return (
     <Layout title="My Todos">
       <form
-        className="py-10 px-16 bg-white rounded-xl shadow-md"
+        className="p-4 md:py-10 md:px-16 bg-white rounded-xl shadow-md w-full max-w-[650px] mx-auto"
         onSubmit={handleSubmit(onUserLogin, formOnErrors)}
       >
         <div className="mb-12">
@@ -96,6 +95,7 @@ const Index = () => {
             })}
             error={errors.account}
             type="text"
+            placeholder="請輸入帳號"
           />
           <TextInput
             label="密碼"
@@ -109,9 +109,10 @@ const Index = () => {
             })}
             error={errors.password}
             type="password"
+            placeholder="請輸入密碼"
           />
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center flex-wrap gap-4">
           <Link href={"/SignUp"}>
             <span className="rounded mx-2 border-2 px-4 py-1 cursor-pointer transition-all hover:bg-[#e3e8eB] text-gray-500 text-xl font-bold">
               註冊
