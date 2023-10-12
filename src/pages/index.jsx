@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "@/layout/Layout";
 import Link from "next/link";
-import getSupabaseClient from "@/hooks/getSupabaseClient";
+import getSupabaseClient from "@/data/mock/utils/getSupabaseClient";
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/TextInput";
 import { useRouter } from "next/router";
@@ -41,10 +41,10 @@ const Index = () => {
       return;
     } else {
       // check if user is in profiles table
-      const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .select("username")
-        .eq("id", data.user.id);
+      // const { data: profileData, error: profileError } = await supabase
+      //   .from("profiles")
+      //   .select("username")
+      //   .eq("id", data.user.id);
 
       // if (profileError) {
       //   console.error("Error checking profile:", profileError);
@@ -69,17 +69,6 @@ const Index = () => {
       router.push(process.env.NEXT_PUBLIC_HOME_PAGE);
     }
   };
-
-  // const getUserData = async () => {
-  //   const temp = await supabase
-  //   .from('profiles').insert([{username:"test001"}  ]);
-  //   console.log(temp)
-  //   // if (insertError) {
-  //   //   console.error('Error adding profile:', insertError);
-  //   // }
-  //   // }
-  // }
-  // getUserData()
 
   return (
     <Layout title="My Todos">
