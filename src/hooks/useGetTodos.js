@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateTodoArr } from '@/redux/slices/todoSlice';
 import { getTodoData } from '@/api/todo';
+import { useDispatch } from 'react-redux';
+import { updateTodoArr } from '@/redux/slices/todoSlice';
 
 export const useGetTodo = () => {
     const dispatch = useDispatch();
@@ -29,6 +29,4 @@ export const useGetTodo = () => {
             })
             .catch(err => console.log(err));
     }, [dispatch]);
-
-    // console.log('allTodo', oriTodo);
 };
